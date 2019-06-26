@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
+
+    <bean id="popsequenceDataSourceMysql" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="${mysql.popsequence.jdbc.url}"/>
+        <!-- profile 配置 -->
+        <property name="username" value="${mysql.popsequence.jdbc.username}"/>
+        <!-- important.properties 配置 -->
+        <property name="password" value="${mysql.popsequence.jdbc.password}"/>
+        <!-- important.properties 配置 -->
+        <property name="initialSize" value="1"/>
+        <property name="maxActive" value="10"/>
+        <property name="maxIdle" value="3"/>
+        <property name="minIdle" value="1"/>
+        <property name="maxWait" value="5000"/>
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <property name="minEvictableIdleTimeMillis" value="180000"/>
+    </bean>
+
+    <!--自定义Sequence工具类-->
+    <bean id="defaultSequence" class="com.wl.study.gen_id.Sequence">
+        <property name="dataSource" ref="popsequenceDataSourceMysql"/>
+        <property name="blockSize" value="10"/>
+    </bean>
+
+    <bean id="sequenceUtil" class="com.wl.study.gen_id.SequenceUtil">
+        <property name="defaultSequence" ref="defaultSequence"/>
+        <property name="sequenceMap">
+            <map>
+                <entry key="TEST_SEQUENCE" value-ref="defaultSequence"/>
+            </map>
+        </property>
+    </bean>
+</beans>

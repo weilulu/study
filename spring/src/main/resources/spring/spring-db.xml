@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd"
+       default-lazy-init="true">
+    <!-- 数据源定义,使用 连接池 -->
+    <bean id="masterDataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+        <property name="driverClassName" value="${mysql.jdbc.driver}" />
+        <property name="url" value="${master.mysql.jdbc.url}" />
+        <property name="username" value="${master.mysql.jdbc.username}" />
+        <property name="password" value="${master.mysql.jdbc.password}" />
+        <property name="initialSize" value="${minPoolSize}" />
+        <property name="maxActive" value="${maxPoolSize}" />
+        <property name="minIdle" value="${minIdle}" />
+        <property name="maxWait" value="${maxWait}"/>
+        <property name="validationQuery" value="${validationQuery}"/>
+        <property name="testWhileIdle" value="${testWhileIdle}"/>
+        <property name="removeAbandoned" value="${removeAbandoned}" />
+        <property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" /><!-- 自动回收超时时间(以秒数为单位) -->
+        <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}"/>
+        <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}"/>
+        <property name="testOnBorrow" value="${testOnBorrow}"/>
+        <property name="testOnReturn" value="false" />
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+        <property name="poolPreparedStatements" value="false" />
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+        <!-- 配置监控统计拦截的filters -->
+        <property name="filters" value="stat" />
+    </bean>
+    <bean id="slaveDataSource1" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+        <property name="driverClassName" value="${mysql.jdbc.driver}" />
+        <property name="url" value="${slave1.mysql.jdbc.url}" />
+        <property name="username" value="${slave1.mysql.jdbc.username}" />
+        <property name="password" value="${slave1.mysql.jdbc.password}" />
+        <property name="initialSize" value="${minPoolSize}" />
+        <property name="maxActive" value="${maxPoolSize}" />
+        <property name="minIdle" value="${minIdle}" />
+        <property name="maxWait" value="${maxWait}"/>
+        <property name="validationQuery" value="${validationQuery}"/>
+        <property name="testWhileIdle" value="${testWhileIdle}"/>
+        <property name="removeAbandoned" value="${removeAbandoned}" />
+        <property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" /><!-- 自动回收超时时间(以秒数为单位) -->
+        <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}"/>
+        <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}"/>
+        <property name="testOnBorrow" value="${testOnBorrow}"/>
+        <property name="testOnReturn" value="false" />
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+        <property name="poolPreparedStatements" value="false" />
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+        <!-- 配置监控统计拦截的filters -->
+        <property name="filters" value="stat" />
+    </bean>
+
+    <bean id="dataSource" class="com.jd.datasource.DynamicDataSource" >
+        <property name="targetDataSources">
+            <map key-type="java.lang.String">
+                <entry key="master" value-ref="masterDataSource" />
+                <entry key="slave1" value-ref="slaveDataSource1" />
+            </map>
+        </property>
+        <property name="defaultTargetDataSource" ref="masterDataSource"/>
+    </bean>
+
+    <!--配置数据源切面-->
+    <bean id="dataSourceAspect" class="com.jd.datasource.DataSourceAspect" />
+    <aop:config>
+        <aop:aspect ref="dataSourceAspect">
+            <!-- 拦截所有dao方法 -->
+            <aop:pointcut id="dataSourcePointcut" expression="execution(* com.jd.huishou.order.service..*.*(..))"/>
+            <aop:around pointcut-ref="dataSourcePointcut" method="intercept" />
+        </aop:aspect>
+    </aop:config>
+
+
+    <!--MyBatis integration with Spring as define sqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:mybatis-config.xml" />
+        <property name="mapperLocations">
+            <list>
+                <value>classpath:com/jd/huishou/order/dao/**/*.xml</value>
+            </list>
+        </property>
+    </bean>
+
+
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+        <property name="basePackage"
+                  value="com.jd.huishou.order.dao.*,com.jd.huishou.man.communal.mapper" />
+    </bean>
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+          abstract="false">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager" order="99"/>
+
+
+</beans>

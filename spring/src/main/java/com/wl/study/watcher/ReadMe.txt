@@ -1,0 +1,16 @@
+基于Guava的RateLimiter做限流
+这个包打算实现这样的功能：
+１，监控每个方法的请求数量
+２，对方法请求进行限流
+
+依赖：
+Guava cache的LRU算法
+
+MonitorHandler与RequestCounter有什么关系？它们是怎样联系起来的？通过guava cache
+
+1,guava cache里存的什么？
+alias里第一分钟内的访问频次
+2,DoorKeeper里matchCount和size相比是什么意思？
+一个方法里可能会有多个限制条件，这里的matchCount就是条件的个数；size指配置里的限制条件
+3,MonitorHandler里的限流与访问次数没有直接关系，限流通过guava rateLimiter实现；
+访问次数通过LongAdder实现
