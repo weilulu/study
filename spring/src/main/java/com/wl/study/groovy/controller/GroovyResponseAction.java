@@ -1,13 +1,21 @@
 package com.wl.study.groovy.controller;
 
-import com.wl.study.groovy.response.response;
+import com.wl.study.groovy.response.DynamicInject;
+import com.wl.study.groovy.response.TestService;
 import com.wl.study.groovy.util.ClassUtils;
 import com.wl.study.groovy.util.SpringContextUtils;
+import groovy.lang.Binding;
 import groovy.lang.GroovyClassLoader;
 import groovy.lang.GroovyObject;
+import groovy.util.GroovyScriptEngine;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import java.io.FileReader;
 
 
 /**
@@ -73,12 +81,56 @@ public class GroovyResponseAction {
         String fileName = "script/Response.groovy";
         Class<?> groovyClass = SpringContextUtils.getGroovyClass(fileName);
         GroovyObject groovyObject = (GroovyObject)groovyClass.newInstance();
-        //response response = (response) SpringContextUtils.getBean("response");
-        //response.run();
         Object result = groovyObject.invokeMethod("run",null);
         return result;
     }
 
+    /**
+     * 修改了脚本内容后，会实时print新内容，也可以拿到返回值
+     * @return
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping("dynamicResponse")
+    public Object dynamicResponse()throws Exception{
+        String filePath = "D:\\workspace\\study\\spring\\src\\main\\resources\\script";
+        GroovyScriptEngine scriptEngine = new GroovyScriptEngine(filePath);
+        Binding binding = new Binding();
+        //binding.setVariable();
+        Object object1 = scriptEngine.run("dynamicResponse.groovy",binding);
+        return object1;
+    }
+
+    /**
+     * 修改了脚本内容后，会实时print新内容，也可以拿到返回值。。。
+     * 有一点需要注意的是，如果脚本里定义的是一个方法，则是拿不到返回值的，scriptEngine.run这样执行也一样
+     * @return
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping("dynamicResponseWithJDK6")
+    public Object dynamicResponseWithJDK6()throws Exception{
+        String filePath = "D:\\workspace\\study\\spring\\src\\main\\resources\\script";
+        FileReader fileReader = new FileReader(filePath+"\\dynamicResponse.groovy");
+
+        ScriptEngineManager manager = new ScriptEngineManager();
+
+        ScriptEngine groovy = manager.getEngineByName("groovy");
+        Object result = groovy.eval(fileReader);
+        return result;
+    }
+
+    /**
+     * 动态将bean注入到groovy脚本中，这样groovy也可以使用已有的bean
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping("dynamicInjectBean")
+    public void dynamicInjectBean()throws Exception{
+        DynamicInject object = SpringContextUtils.getBean("dynamicInject",DynamicInject.class);
+        object.response();
+        System.out.println(object);
+    }
 
     /**
      * 无参脚本

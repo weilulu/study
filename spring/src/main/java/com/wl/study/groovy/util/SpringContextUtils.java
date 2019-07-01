@@ -1,5 +1,8 @@
 package com.wl.study.groovy.util;
 
+import com.wl.study.groovy.response.DynamicInject;
+import com.wl.study.groovy.response.TestService;
+import groovy.lang.GroovyClassLoader;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.beans.factory.InitializingBean;
@@ -10,13 +13,18 @@ import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * @Author:weilu
  * @Date: 2019/6/26 18:13
- * @Description: ${Description}
+ * @Description: spring context操作工具
+ * 将groovy脚本（对象）生成BeanDefinition，并托管到ApplicationContext中
+ * 在注册groovy bean需要注意的是：获取groovy 类时直接使用类名就行，
+ * 而不要通过GroovyClassLoader进行获取，不然在getBean时会出现'no matching editors or conversion strategy found'问题
  */
 @Component
 public class SpringContextUtils implements BeanFactoryPostProcessor,ApplicationContextAware {
@@ -33,14 +41,14 @@ public class SpringContextUtils implements BeanFactoryPostProcessor,ApplicationC
      */
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        //String fileName = "script/Response.groovy";
-        String fileName = "response.groovy";
+
+        /*String fileName = "D:\\workspace\\study\\spring\\src\\main\\java\\com\\wl\\study\\groovy\\response\\DynamicInject.groovy";
         Class<?> groovyClass = getGroovyClass(fileName);
         if(groovyClass == null){
             System.out.println("groovy class is null");
             return;
-        }
-        registBean(beanFactory,groovyClass);
+        }*/
+        registBean(beanFactory,DynamicInject.class);// TODO 这里的class name需要groovy脚本按规范进行命名
     }
 
     /**
@@ -49,12 +57,22 @@ public class SpringContextUtils implements BeanFactoryPostProcessor,ApplicationC
      * @return
      */
     public static Class<?> getGroovyClass(String fileName){
-        Class<?> groovyClass = null;
+        File file = null;
         try {
-            groovyClass = ClassUtils.getGroovyClass(fileName);
+            file = new File(fileName);
         }catch (Exception e){
             e.printStackTrace();
         }
+        GroovyClassLoader groovyClassLoader = new GroovyClassLoader();
+        Class<?> groovyClass = null;
+        if(file != null){
+            try {
+                groovyClass = groovyClassLoader.parseClass(file);
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+
         return groovyClass;
     }
     private void registBean(ConfigurableListableBeanFactory beanFactory,Class<?> clazz){
@@ -64,11 +82,11 @@ public class SpringContextUtils implements BeanFactoryPostProcessor,ApplicationC
         BeanDefinitionBuilder definitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(clazz);
         AbstractBeanDefinition rawBeanDefinition = definitionBuilder.getRawBeanDefinition();
         SpringContextUtils.applicationContext.getAutowireCapableBeanFactory()
-                .applyBeanPostProcessorsAfterInitialization(rawBeanDefinition,"response");
+                .applyBeanPostProcessorsAfterInitialization(rawBeanDefinition,"dynamicInject");
 
-        DefaultListableBeanFactory defaultListableBeanFactory
-            = (DefaultListableBeanFactory)beanFactory;
-        defaultListableBeanFactory.registerSingleton("responseService",rawBeanDefinition);
+        DefaultListableBeanFactory defaultListableBeanFactory = (DefaultListableBeanFactory)beanFactory;
+        defaultListableBeanFactory.registerBeanDefinition("dynamicInject",rawBeanDefinition);
+
     }
 
     /**
@@ -91,8 +109,11 @@ public class SpringContextUtils implements BeanFactoryPostProcessor,ApplicationC
     }
 
     public static Object getBean(String beanName){
+        return applicationContext.getBean(beanName);
+    }
+    public static <T> T getBean(String beanName,Class<T> requiredType){
         ApplicationContext context = SpringContextUtils.getApplicationContext();
-        return context.getBean(beanName);
+        return context.getBean(beanName,requiredType);
     }
     public static ApplicationContext getApplicationContext() {
         return applicationContext;

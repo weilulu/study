@@ -1,7 +1,8 @@
 package script
 
-import com.wl.study.groovy.service.ResponseService
+import com.wl.study.groovy.service.ResponseServiceImpl
 import groovy.json.JsonOutput
+import groovy.transform.CompileStatic
 import org.springframework.beans.factory.annotation.Autowired
 
 /**
@@ -10,15 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired
  * @Description: ${Description}
  *
  */
+@CompileStatic
 class Response {
 
     @Autowired
-    private ResponseService responseService;
+    private ResponseServiceImpl responseService;
 
     def run(){
         //responseService.test();
 
-        def jsonStr = JsonOutput.toJson([gw_func_adde:'/mapi/template/1/test04', response:'RESPONSE']);
+        def jsonStr = JsonOutput.toJson([gw_func_adde:'/mapi/template/1/test04', response:'RESPONSE2']);
         return jsonStr;
     }
+
 }
