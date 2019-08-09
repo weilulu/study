@@ -66,6 +66,7 @@ public class BitTest {
         System.out.println(Integer.toBinaryString(122));
         int result = 122 ^ (1 << 2);
         System.out.println(Integer.toBinaryString(result));
+        System.out.println(result);
     }
 
     /**

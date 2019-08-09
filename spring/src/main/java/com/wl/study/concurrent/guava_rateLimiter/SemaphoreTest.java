@@ -25,6 +25,10 @@ public class SemaphoreTest {
 
     private static Semaphore semaphore = new Semaphore(3);
 
+    /**
+     * 总共会有30个线程，但一次只允许3个线程访问
+     * @param args
+     */
     public static void main(String[] args) {
         for (int i=0;i<THREAD_COUNT;i++){
             pool.execute(new Runnable() {

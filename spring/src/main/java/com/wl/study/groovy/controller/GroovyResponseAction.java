@@ -1,14 +1,13 @@
 package com.wl.study.groovy.controller;
 
 import com.wl.study.groovy.response.DynamicInject;
-import com.wl.study.groovy.response.TestService;
 import com.wl.study.groovy.util.ClassUtils;
 import com.wl.study.groovy.util.SpringContextUtils;
 import groovy.lang.Binding;
 import groovy.lang.GroovyClassLoader;
 import groovy.lang.GroovyObject;
 import groovy.util.GroovyScriptEngine;
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.GenericGroovyApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -96,7 +95,7 @@ public class GroovyResponseAction {
         String filePath = "D:\\workspace\\study\\spring\\src\\main\\resources\\script";
         GroovyScriptEngine scriptEngine = new GroovyScriptEngine(filePath);
         Binding binding = new Binding();
-        //binding.setVariable();
+        binding.setVariable("param","test");
         Object object1 = scriptEngine.run("dynamicResponse.groovy",binding);
         return object1;
     }
@@ -132,6 +131,18 @@ public class GroovyResponseAction {
         System.out.println(object);
     }
 
+    /**
+     * 这个不行
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("useGroovyApplication")
+    public Object useGroovyApplication(){
+        GenericGroovyApplicationContext groovyApplicationContext =
+                new GenericGroovyApplicationContext("script/engineTest2.groovy");
+        Object object = groovyApplicationContext.invokeMethod("getReturn","1");
+        return object;
+    }
     /**
      * 无参脚本
      * @return

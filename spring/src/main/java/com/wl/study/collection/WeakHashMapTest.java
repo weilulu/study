@@ -20,10 +20,12 @@ public class WeakHashMapTest {
         //Map<Key,Project> map = new HashMap<>();//如果下面调用了gc()，map里还是会有两个元素
         Key key1 = new Key("ACTIVE");
         Key key2 = new Key("INACTIVE");
-        map.put(key1,new Project(100,"Customer Management System"));
+        Project project1 = new Project(100,"Customer Management System");
+        map.put(key1,project1);
         map.put(key2,new Project(200,"Employee Management System"));
 
         key1 = null;
+        //project1 = null;//将map中的value置为null，map里还有会有两个元素；而将key置为null，则只有一个
         System.gc();//这个会触发Full GC ，尽量不要使用
         for (Map.Entry<Key,Project> entry : map.entrySet()){
             System.out.println(entry.getKey().getKey()+","+entry.getValue().getId());
