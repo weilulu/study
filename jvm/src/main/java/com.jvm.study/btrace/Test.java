@@ -38,6 +38,14 @@ public class Test{
             System.out.println(key+":"+pro.getProperty(key));
         }
         in.close();
+    }
 
+    public void testThrowable(){
+        StackTraceElement[] stackTrace = new Throwable().getStackTrace();
+        for(StackTraceElement traceElement : stackTrace){
+            String className = traceElement.getClassName();
+            int lineNumber = traceElement.getLineNumber();
+            String methodName = traceElement.getMethodName();
+        }
     }
 }

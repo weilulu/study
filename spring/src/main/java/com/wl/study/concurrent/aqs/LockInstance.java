@@ -16,6 +16,7 @@ public class LockInstance implements Lock {
     public LockInstance() throws IllegalAccessException {
     }
 
+    //通过匿名内部类可以保证Sync单例
     private static final class Sync extends AbstractQueuedSynchronizer{
         Sync(int state) throws IllegalAccessException {
             if(state <= 0){

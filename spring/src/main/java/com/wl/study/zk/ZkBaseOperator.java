@@ -3,7 +3,6 @@ package com.wl.study.zk;
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
 
-import javax.swing.plaf.PanelUI;
 import java.text.MessageFormat;
 import java.util.concurrent.CountDownLatch;
 
@@ -14,7 +13,7 @@ import java.util.concurrent.CountDownLatch;
  */
 public class ZkBaseOperator {
     public static final CountDownLatch CONNECT_SIGNAL = new CountDownLatch(1);
-    private static final String CONNECT_URL = "localhost:2181";
+    private static final String CONNECT_URL = "localhost:2182";
     private static final Integer WAITING = 1;
     private static final Integer SECOND = 1000;
 

@@ -4,6 +4,7 @@ import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.recipes.leader.LeaderLatchListener;
+import org.apache.curator.framework.recipes.leader.Participant;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 
 import org.apache.curator.framework.recipes.leader.LeaderLatch;
@@ -25,9 +26,9 @@ public class ZkLeaderLatch {
     private static final int SECOND = 1000;
 
     public static void main(String[] args) throws Exception{
-        /*ExecutorService service = Executors.newFixedThreadPool(3);
+        ExecutorService service = Executors.newFixedThreadPool(3);
         for(int i=0;i<3;i++){
-            final int index = 1;
+            final int index = i;
             service.submit(new Runnable() {
                 @Override
                 public void run() {
@@ -39,14 +40,13 @@ public class ZkLeaderLatch {
                 }
             });
         }
-        //Thread.sleep(10 * SECOND);
-        service.shutdown();*/
-        new ZkLeaderLatch().schedule(1);
+        Thread.sleep(10 * SECOND);
+        service.shutdown();
     }
 
     private void schedule(final int thread)throws Exception{
-        CuratorFramework client = this.getStartedClient(thread);
-        String path = "/leader_latch";
+        CuratorFramework client = getStartedClient(thread);
+        String path = "/master_select/lock";
         if(client.checkExists().forPath(path) == null){
             client.create().creatingParentsIfNeeded().forPath(path);
         }
@@ -64,7 +64,7 @@ public class ZkLeaderLatch {
            }
         });
         latch.start();
-        //Thread.sleep(2 * (thread + 1) * SECOND);
+        Thread.sleep(2 * (thread + 1) * SECOND);
         if(latch != null){
             latch.close();
         }
@@ -72,21 +72,18 @@ public class ZkLeaderLatch {
             client.close();
         }
         System.out.println("Thread [" + thread + "] Server closed...");
+
     }
 
     private CuratorFramework getStartedClient(final int thread){
-        CuratorFramework curatorFramework = null;
-        try {
-            RetryPolicy rp = new ExponentialBackoffRetry(1 * SECOND,3);
-            curatorFramework = CuratorFrameworkFactory.builder()
-                    .connectString("localhost:2181")
-                    .sessionTimeoutMs(5 * SECOND)
-                    .connectionTimeoutMs(3 * SECOND)
-                    .retryPolicy(rp).build();
-            curatorFramework.start();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        RetryPolicy rp = new ExponentialBackoffRetry(1000,3);
+        CuratorFramework curatorFramework = CuratorFrameworkFactory.builder()
+                .connectString("localhost:2182")
+                .sessionTimeoutMs(8 * SECOND)
+                .connectionTimeoutMs(3 * SECOND)
+                .retryPolicy(rp)
+                .build();
+        curatorFramework.start();
 
         System.out.println("Thread [" + thread + "] Server connected...");;
         return curatorFramework;

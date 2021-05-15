@@ -40,7 +40,7 @@ public class SemaphoreTest {
                         Thread.sleep(1000);
                         semaphore.release();
                     }catch (InterruptedException e){
-
+                        e.printStackTrace();
                     }
                 }
             });

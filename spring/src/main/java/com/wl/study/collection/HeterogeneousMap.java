@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * @Author:weilu
  * @Date:2019/8/9 13:45
- * @Description:异构Map，通过泛型和Class实现将不同类型放入Map中
+ * @Description: 异构Map，通过泛型和Class实现将不同类型放入Map中
  */
 public class HeterogeneousMap {
 

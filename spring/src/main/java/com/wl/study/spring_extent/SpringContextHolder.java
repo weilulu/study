@@ -6,6 +6,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
+import java.util.Random;
+
 /**
  * @Author:weilu
  * @Date: 2019/4/17 10:09
@@ -71,5 +73,24 @@ public class SpringContextHolder implements ApplicationContextAware,DisposableBe
 
     public static void assertContextInjected(){
         Validate.isTrue(applicationContext == null,"applicationContext injected fail!!!");
+    }
+
+
+    public static void main(String[] args){
+        /*int digit = (int)Math.pow(10,7-1);
+        int rs = new Random().nextInt(digit * 10);
+        if(rs < digit){rs += digit;
+        }
+        System.out.println(rs);*/
+
+        StringBuffer sb = new StringBuffer();
+        Random random = new Random();
+
+        for(int i = 0; i < 6; ++i) {
+            sb.append("0123456789".charAt(random.nextInt("0123456789".length())));
+        }
+
+        String s = sb.toString();
+        System.out.println(s);
     }
 }

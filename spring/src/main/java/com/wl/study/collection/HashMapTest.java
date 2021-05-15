@@ -2,9 +2,7 @@ package com.wl.study.collection;
 
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author:weilu
@@ -29,6 +27,9 @@ public class HashMapTest {
         System.out.println(orderMap.get("1"));//就算有再次访问也会移除
         orderMap.put("4","4");
         System.out.println(orderMap);
+
+        List<String> list = new ArrayList();
+        //System.out.println(list.);
 
         //最早加入的("1","1")被移除了
     }

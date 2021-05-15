@@ -2,6 +2,7 @@ package com.wl.study.bit;
 
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
 import java.util.BitSet;
 
 /**
@@ -10,6 +11,12 @@ import java.util.BitSet;
  */
 public class BitTest {
 
+    @Test
+    public void test(){
+        System.out.println(Integer.toBinaryString(-1));
+        System.out.println(Integer.toBinaryString(1));
+        System.out.println(Integer.toBinaryString(2));
+    }
     @Test
     public void test1(){
         System.out.println(2 & (1<<2));//说明2的第3位不是1
@@ -41,9 +48,10 @@ public class BitTest {
      */
     @Test
     public void test3(){
-        System.out.println(Integer.toBinaryString(122));
+        System.out.println(Integer.toBinaryString(122));//1111010
         int result = 122 | (1 << 2);
-        System.out.println(Integer.toBinaryString(result));
+        System.out.println(Integer.toBinaryString(result));//1111110
+        System.out.println(result);//126
     }
 
 
@@ -53,9 +61,10 @@ public class BitTest {
      */
     @Test
     public void test4(){
-        System.out.println(Integer.toBinaryString(122));
+        System.out.println(Integer.toBinaryString(122));//1111010
         int result = 122 & ~(1 << 1);
-        System.out.println(Integer.toBinaryString(result));
+        System.out.println(Integer.toBinaryString(result));//1111000
+        System.out.println(result);//120
     }
 
     /**
@@ -77,5 +86,17 @@ public class BitTest {
     @Test
     public void testBitSet(){
         BitSet bitSet = new BitSet();
+        bitSet.set(2);
+        System.out.println(bitSet.get(0));
+        System.out.println(bitSet.get(1));
+        System.out.println(bitSet.get(2));
+    }
+
+    public static void main(String[] args) throws Exception{
+        String test = "20690101";
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sf2 = new SimpleDateFormat("yyyyMMdd");
+        String format = sf.format(sf2.parse(test));
+        System.out.println(format);
     }
 }
