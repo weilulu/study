@@ -4,9 +4,10 @@ import static sort.Utils.change;
 import static sort.Utils.sout;
 
 /**
- * 插入排序：不断选择剩下元素中最小的
+ * 选择排序：不断选择剩下元素中最小的
  * 在第一轮循环中，先将第一个元素设为最小，拿它和第二个元素比较，如果第二个元素比它小，将它们进行交换；
  * 第一轮比较完之后，再进行第二轮直到最后
+ * 时间复杂度：平均O(n平方)、最好O(n的平方)、最坏O(n的平方)
  */
 public class SelectSort {
     public static void main(String[] args) {

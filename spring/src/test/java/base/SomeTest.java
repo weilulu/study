@@ -6,6 +6,8 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @Author:weilu
@@ -95,5 +97,26 @@ public class SomeTest {
         System.out.println((OPCODE+" TEST").split(Byte.toString(OPCODE))[1].length());
         System.out.println("  TEST".length());
         System.out.println("  TEST".split("  ")[1].length());
+    }
+
+    /**
+     * 将特殊字段替换转译符 \
+     * 如果直接使用string.replaceAll方法会出错，可看String的replaceAll方法上的注释
+     * $　这个符号也需要这样处理
+     *
+     * Note that backslashes ({@code \}) and dollar signs ({@code $}) in the
+     * replacement string may cause the results to be different than if it were
+     * being treated as a literal replacement string; see
+     * {@link java.util.regex.Matcher#replaceAll Matcher.replaceAll}.
+     * Use {@link java.util.regex.Matcher#quoteReplacement} to suppress the special
+     * meaning of these characters, if desired.
+     */
+    @Test
+    public void testReplaceBackslashes(){
+        String test = "test#test";
+        Pattern p = Pattern.compile("#");
+        Matcher m = p.matcher(test);
+        String s = m.replaceAll(Matcher.quoteReplacement("\\"));
+        System.out.println(s);//输出test\test
     }
 }

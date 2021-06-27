@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.WeakHashMap;
 
 /**
@@ -16,6 +17,7 @@ public class WeakHashMapTest {
 
     @Test
     public void test(){
+
         Map<Key,Project> map = new WeakHashMap<>();//如果下面调用了gc()，则map里只会存在key2所在的键值对
         //Map<Key,Project> map = new HashMap<>();//如果下面调用了gc()，map里还是会有两个元素
         Key key1 = new Key("ACTIVE");
@@ -70,5 +72,15 @@ public class WeakHashMapTest {
         public void setName(String name) {
             this.name = name;
         }
+    }
+
+    @Test
+    public void threadLocalTest(){
+        ThreadLocal threadLocal = new ThreadLocal();
+        threadLocal.set("test");
+        System.out.println(threadLocal.get());
+        threadLocal.set("test2");
+        System.out.println(threadLocal.get());
+
     }
 }
