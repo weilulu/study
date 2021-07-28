@@ -25,6 +25,7 @@ public class SpiBankaccQueryImpl implements BankaccQueryFacade{
     @Override
     public Response<GetBankaccByCustomerIdResponse> getBankaccByCustomerId(GetBankaccByCustomerIdRequest request){
         System.out.println("hello");
+
         return null;
     }
 

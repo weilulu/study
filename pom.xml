@@ -16,6 +16,8 @@
         <module>lambda</module>
         <module>data_struct</module>
         <module>kafka</module>
+        <module>algorithm</module>
+        <module>thread</module>
     </modules>
 
     <properties>

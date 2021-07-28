@@ -1,5 +1,7 @@
 package sort;
 
+import java.util.Objects;
+
 public class Utils {
 
     public static void change(int[] array,int i,int j){
@@ -23,6 +25,8 @@ public class Utils {
     }
 
     public static void main(String[] args) {
-        Utils.biChange(2,4);
+        //Utils.biChange(2,4);
+        String test = "test";
+        System.out.println(Objects.hash(test));
     }
 }

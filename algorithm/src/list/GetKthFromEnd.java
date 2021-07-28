@@ -1,15 +1,20 @@
 package list;
 
+/**
+ * 使用了两个快、慢指针，让快指针先走到指定位置；接着快、慢指针同时走，当快指针走到最后时，慢指针下一个节点就是指定节点
+ */
 public class GetKthFromEnd {
 
     public ListNode getKthFromEnd(ListNode head,int k){
         ListNode node = head;
+        //快指针先走
         while(node != null && k > 0){
             node = node.getNext();
             k--;
         }
         System.out.println("K:"+k+",node value:"+node.getValue());
         ListNode listNode = head;
+        //快、慢指针同时走，当快指针走到结尾时，慢指针下一个节点就是要找的节点
         while (node.getNext() != null){
             node = node.getNext();
             listNode = listNode.getNext();
