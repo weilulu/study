@@ -1,0 +1,13 @@
+对于扫描路径下带有@Configuration/@Componet/@Service/@Controller/@Repository的类，sprig会创建对应的bean并添加到IOC容器里，
+对于其它的注解spring是不会识别的。那有没方法让spring也能识别我们自定义的注解呢？
+答案是有的，就是通过ImportBeanDefinitionRegistrar这个扩展点来实现。
+其实，这就达到了动态加载bean的功能：随便一个类只要被我们自定义的注解进行修饰，就可以动态地加入到IOC容器里。
+
+大概分三步：
+1，自定义一个注解，并在想要动态加入IOC容器的Bean上使用。
+2，定义一个扫描器，指定需要扫描的注解。
+3，实现ImportBeanDefinitionRegistrar接口，并将扫描所得的bean动态加入IOC容器。
+
+可以参考下：https://zhuanlan.zhihu.com/p/91461558
+
+还可以参考spring源码里的ImportedRegistrar里的类，里面有另一种用法

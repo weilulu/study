@@ -20,7 +20,7 @@ public class ReverseList {
             first = first.getNext();
         }
         System.out.println("-----------");
-        head = reverseList(head);
+        head = reverse(head);
         while(head != null){
             System.out.println(head.getValue());
             head = head.getNext();
@@ -44,8 +44,8 @@ public class ReverseList {
 
     /**
      *
-     * @param head
-     * @return
+     * @param head 旧列表头节点
+     * @return 新的头节点
      * pre:上一节点
      * cur:当前节点
      * tmp:临时节点，用于保存当前节点的下一节点
@@ -64,7 +64,24 @@ public class ReverseList {
             cur = tmp;
         }
         head.setNext(null);
-        return pre;
+        return pre;//返回新的头节点
+    }
+
+    /**
+     * 就地反转，节点值不变，从头向尾依次调整节点的指针，由指向后面调整为指向前
+     * @param head
+     * @return
+     */
+    public static  Node reverseList2(Node head){
+        Node pre = null;
+        Node next = null;
+        while (head != null){
+            next = head.next;
+            head.next = pre;//调整指针指向，head的下一节点指针指向pre
+            pre = head;
+            head = next;
+        }
+        return pre;//新的头节点
     }
 
     static class Node<E>{

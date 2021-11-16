@@ -1,6 +1,6 @@
 package com.wl.study.concurrent.thread_exception;
 
-import lombok.extern.slf4j.Slf4j;
+//import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,8 +10,10 @@ import java.util.concurrent.*;
  * 线程池发生了异常：
  * https://mp.weixin.qq.com/s/kl84A4W1W2iTJNylbfouFQ
  */
-@Slf4j
+//@Slf4j
 public class ExceptionWithThreadPool {
+    private static Logger log = LoggerFactory.getLogger(ExceptionWithThreadPool.class);
+
     public static void main(String[] args) throws InterruptedException, ExecutionException {
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(
                 2,

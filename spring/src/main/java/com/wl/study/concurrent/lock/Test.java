@@ -11,13 +11,13 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Test {
     static Lock lock = new ReentrantLock();
     public static void main(String[] args) {
-        lock.lock();
+        lock.lock();//如果超过65535未获取成功会抛出异常
         try{
             String test = null;
-            test.toLowerCase();
+            //test.toLowerCase();
         }finally {
             System.out.println("test");
-            lock.unlock();
+            lock.unlock();//如果未加锁成功就释放锁会抛出异常
         }
     }
 

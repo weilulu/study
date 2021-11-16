@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 @Aspect
 public class AopHandler {
 
-    private static final String executionSring = "execution(* com.wl.study.aop.AopServiceImpl.test())";
+    private static final String executionString = "execution(* com.wl.study.aop.AopServiceImpl.test())";
 
-    @Around(executionSring)
+    @Around(executionString)
     public void handle(ProceedingJoinPoint point)throws Throwable{
         System.out.println(1);
         point.proceed();

@@ -8,6 +8,7 @@ import java.util.concurrent.locks.Lock;
 /**
  * @Author:weilu
  * @Date: 2019/3/7 23:04
+ * 共享锁示例
  */
 public class LockInstance implements Lock {
 
@@ -27,6 +28,7 @@ public class LockInstance implements Lock {
 
         @Override
         public int tryAcquireShared(int arg){
+            super.getSharedQueuedThreads();
             for(;;){
                 System.out.println("try acquire...");
                 int current = getState();
@@ -47,6 +49,10 @@ public class LockInstance implements Lock {
                     return true;
                 }
             }
+        }
+
+        Condition newCondition(){
+            return new ConditionObject();
         }
     }
 
@@ -78,6 +84,6 @@ public class LockInstance implements Lock {
 
     @Override
     public Condition newCondition() {
-        return null;
+        return sync.newCondition();
     }
 }

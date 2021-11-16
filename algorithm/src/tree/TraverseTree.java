@@ -87,7 +87,7 @@ public class TraverseTree {
                     stack.push(c.left);
                 }else if(c.right != null && node != c.right){//说明c的右子树还没处理完
                     stack.push(c.right);
-                }else{//说明c的的左子树与右子树都已处理，输出根节点
+                }else{//说明c的的左子树与右子树都已处理或c己无左子树与右子树，输出当前节点
                     System.out.println(stack.pop().value + " ");
                     node = c;
                 }

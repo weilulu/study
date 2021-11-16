@@ -1,5 +1,7 @@
 package tree;
 
+import org.w3c.dom.ls.LSOutput;
+
 /**
  * 获取二叉树的最小深度
  * 思路：先将深度初始化为１，然后不断遍历当前节点的左、右节点，当一个节点
@@ -23,6 +25,7 @@ public class TreeDepth {
         }
         return high;
     }
+
 
     class Node{
         int value;
