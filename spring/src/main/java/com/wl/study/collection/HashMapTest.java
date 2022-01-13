@@ -58,4 +58,25 @@ public class HashMapTest {
         System.out.println(n);
         System.out.println((n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1);
     }
+
+    /**
+     * 修改map里的key,如果只是单纯的修改key而不再put回去，那之前的map不会有任务改变；
+     * 如果使用新key put回去会出异常
+     */
+    @Test
+    public void testUpdateKey(){
+        Map<String,String> map = new HashMap<String,String>(){{
+            put("a","1");
+            put("b","2");
+        }};
+
+        for(String key : map.keySet()){
+            if(key.equals("a")){
+                String value = map.get(key);
+                key = "aa";
+                map.put(key,value);//ConcurrentModificationException
+            }
+        }
+        System.out.println(map.toString());
+    }
 }

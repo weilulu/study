@@ -5,6 +5,7 @@ package array;
  * 这里使用大顶堆来实现:
  * 维护一个有k个数的大顶堆（从数组里取数），然后遍历整个数组，遍历过程中看当前元素是否比堆顶元素小，如果是，则将使用此元素将堆顶元素替换，
  * 然后调整堆使其仍是一个大顶堆，如果不是则继续遍历数组。遍历结束后堆中的k个数就是数组中最小的k个数
+ * 时间复杂度：O(nlogn)
  */
 public class GetMinByHeap {
     public static void main(String[] args) {
@@ -44,7 +45,7 @@ public class GetMinByHeap {
     public void heapInsert(int[] arr,int value,int index){
         arr[index] = value;
         while (index != 0){
-            int parent = (index -1) / 2;
+            int parent = (index -1) / 2; //注 -1/2=0
             //保证根节点最大
             if(arr[parent] < arr[index]){
                 swap(arr,parent,index);

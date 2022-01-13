@@ -15,8 +15,8 @@ public class PrintByLevel {
         if(head == null)return;
         Queue<Node> queue = new LinkedList<>();
         int level = 1;
-        Node  last = head;//last是正在打印的当前行的最右节点
-        Node nLast = null;//nLast是下一行的最右节点
+        Node  last = head;//last是正在打印的当前行的最后一个节点
+        Node nLast = null;//nLast是下一行的最后一个节点，可能是左节点也可能是右节点
         queue.offer(head);
         System.out.print("level " + (level++) +" : ");
         while (!queue.isEmpty()){
@@ -30,21 +30,22 @@ public class PrintByLevel {
                 queue.offer(head.right);
                 nLast = head.right;
             }
-            //这里是重点：如果遍历到最右节点说明要进行换行
-            if(head == last && ! queue.isEmpty()){
+            //这里是重点：如果遍历到某一层的最后一个节点说明要进行换行
+            if(head == last && !queue.isEmpty()){
                 System.out.print("\nlevel "+(level++)+":");
                 last = nLast;
             }
         }
         System.out.println();
     }
-}
-
-class Node{
-    public int value;
-    public Node left;
-    public Node right;
-    public Node(int value){
-        this.value = value;
+    static class Node{
+        public int value;
+        public Node left;
+        public Node right;
+        public Node(int value){
+            this.value = value;
+        }
     }
 }
+
+

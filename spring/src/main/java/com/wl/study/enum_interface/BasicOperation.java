@@ -3,7 +3,7 @@ package com.wl.study.enum_interface;
 /**
  * @Author:weilu
  * @Date:2019/8/9 14:15
- * @Description:使用接口实现枚举的可扩展,具体做法是让不同枚举实现接口
+ * @Description 使用接口实现枚举的可扩展,具体做法是让不同枚举实现接口
  */
 public enum BasicOperation implements Operation{//枚举实现了接口，如果还有别的算法，也可以实现这个接口
     PLUS("+"){

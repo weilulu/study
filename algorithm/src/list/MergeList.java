@@ -35,6 +35,30 @@ public class MergeList {
         return head;
     }
 
+    /**
+     * 这个空间复杂度要高一些
+     * @param node1
+     * @param node2
+     * @return
+     */
+    public Node merge(Node node1,Node node2){
+        Node h = new Node(-1);
+        Node cur = h;
+        while (node1 != null && node2 != null){
+            if(node1.value<node2.value){
+                cur.next = node1;
+                node1 = node1.next;
+            }else{
+                cur.next = node2;
+                node2 = node2.next;
+            }
+            cur = cur.next;
+        }
+        if(node1!=null)cur.next = node1;
+        if(node2!=null)cur.next = node2;
+        return h.next;
+    }
+
     static class Node{
         public int value;
         public Node next;

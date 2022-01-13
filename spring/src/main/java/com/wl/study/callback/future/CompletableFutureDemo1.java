@@ -1,7 +1,10 @@
 package com.wl.study.callback.future;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * @Author:weilu
@@ -44,4 +47,5 @@ public class CompletableFutureDemo1 {
         }*/
         return 5 + Math.random() * 20;
     }
+
 }

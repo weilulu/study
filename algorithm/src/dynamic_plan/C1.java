@@ -5,7 +5,7 @@ import org.checkerframework.checker.units.qual.C;
 /**
  * 给定整数N，返回斐波那契数列的第N项
  * 1,1,2,3,5,8,13...
- * 除了第1，2项外，第N项有F(N)=F(N-1)+F(N-1)
+ * 除了第1，2项外，第N项有F(N)=F(N-1)+F(N-2)
  */
 public class C1 {
     /**
@@ -27,6 +27,8 @@ public class C1 {
      * 时间复杂度：O(n)
      * @param n
      * @return
+     *
+     *
      */
     public int m2(int n){
         if(n < 1){
@@ -44,6 +46,23 @@ public class C1 {
             pre = tmp;
         }
         return res;
+    }
+
+    /**
+     * 非递归爬楼梯一样
+     * https://blog.csdn.net/a740169405/article/details/50679759
+     * @param n
+     * @return
+     */
+    public int m3(int n){
+        int n1 = 1;
+        int n2 = 2;
+        for(int i=3;i<=n;i++){
+            int tmp = n2;
+            n2 = n1 + n2;
+            n1 = tmp;
+        }
+        return n2;
     }
 
     public static void main(String[] args) {

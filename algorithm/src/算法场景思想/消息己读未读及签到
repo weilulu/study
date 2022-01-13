@@ -1,0 +1,29 @@
+对于消息己读，未读还有签到类似的功能，如果使用平常的string,int等类型进行标识存储，肯定是很大的内存开销。
+所以可以考虑使用redis里的bitset(或其它类似的位图数组)
+
+SETBIT key offset value 设置指定偏移量上的值，时间复杂度为O(1)
+offset取值范围为大于等于0，小于 2^32（512 MB 之内）
+value的值有0，1
+GETBIT key offset 获取指定偏移量上的值，时间复杂度为O(1)
+BITCOUNT key [start] [end] 计算给定字符串中，被设置为 1 的比特位的数量，时间复杂度为O(n)
+BITPOS key bit [start] [end] 返回位图中第一个值为 bit 的二进制位的位置，时间复杂度为O(n)
+
+1，使用 bitmap 实现用户上线次数统计
+将用户的userId作为key,上线天数比如78作为offset,上线标识为1
+setbit peter 98 1
+如果要统计peter的上线天数，则：
+bitcount peter 1
+
+2，设计消息的己读未读，将消息id作为key,用户id作为offset，默认为未读，如果读了置为1
+setbit messageId userId 1
+判断某条消息是否被指定的人读了：
+getbit messageId userId 如果是1则是读了
+
+类似的结构还有java里的BitSet,guava里的bitmap
+BitSet底层是long[] 默认长度为64位，可自动扩容
+bitmap不太清楚
+
+布隆过滤器：
+google.guava这个包里有
+redis中有布隆过滤器的插件，可以直接用bf.add和bf.exists。
+bf.reserve xx 0.00001设置误判率

@@ -52,7 +52,7 @@ public class ProxyPattern {
     }
 
     public static void main(String[] args) {
-        Image image = new ProxyImage("test.jpg");
+        Image image = new ProxyImage("说明.jpg");
         image.display();//第一次需要去加载资源
         System.out.println("");
         image.display();//第二次不再需要加载

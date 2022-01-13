@@ -9,7 +9,7 @@ package tree;
  * 左为t1,右为t2，返回true
  *
  * 如果t1中某棵子树头节点的值与t2头节点的值一样，则从这两个头节点开始匹配，匹配的每一步都让t1上的节点跟着t2上的节点的先序遍历移动，
- * 每移动一步，都检查t1的当前节点是否与t2当前节点3的值一样。如果匹配过程中发现有不匹配的情况，则直接返回false，需要再去寻找t1的下
+ * 每移动一步，都检查t1的当前节点是否与t2当前节点的值一样。如果匹配过程中发现有不匹配的情况，则直接返回false，需要再去寻找t1的下
  * 一棵子树。
  */
 public class ContainSubTree {
@@ -22,6 +22,11 @@ public class ContainSubTree {
         }
     }
 
+    /**
+     * @param t1
+     * @param t2
+     * @return
+     */
     public static boolean contains(Node t1,Node t2){
         if(t2 == null){
             return true;

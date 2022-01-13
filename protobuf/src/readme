@@ -1,0 +1,13 @@
+注意pom.xml文件里build下的os.detected.classifier会提示找不到，
+这里可以
+方案一：
+在mvn命令后面拼接上机器属性参数即可：
+mvn package -DskipTests -Dos.detected.classifier=osx-x86_64
+mvn package -DskipTests -Dos.detected.classifier=linux-x86_64
+mvn install -DskipTests -Dos.detected.classifier=linux-x86_64
+
+方案2：
+配置JVM启动参数到环境变量：
+export MAVEN_OPTS=-Dos.detected.classifier=linux-x86_64
+
+我是直接使用osx-x86_64进行了替换

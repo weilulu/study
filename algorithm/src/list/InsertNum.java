@@ -23,7 +23,8 @@ public class InsertNum {
         Node cur = head.next;
         /**
          * 如果num的值小于或大于链表里所有节点的值，则循环结束后循环里面的if判断都不会成功，
-         * 此时，cur为头节点，pre为尾节点；
+         * 此时，cur为头节点，pre为尾节点；比如2，3，4，5链表，需要插入1，过程如下：
+         * cur与pre都会移动，直到cur为head时break,这个时候就是cur为头节点，pre为尾节点
          * 如果num的值介于链表里的节点对应的值，则循环里的if判断会成立，
          * 此时，cur为尾节点，pre为尾节点的上一节点。
          */

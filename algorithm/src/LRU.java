@@ -1,5 +1,12 @@
 import java.util.HashMap;
 
+/**
+ * LRU：最近最少使用，也就是淘汰最长时间未使用
+ * LFU：一段时间内最少使用
+ * @param <K>
+ * @param <V>
+ * 新加入或get一次则移到尾部，达到容量后删除头部元素
+ */
 public class LRU<K,V> {
     private HashMap<K,Node<V>> keyNodeMap;
     private HashMap<Node<V>,K> nodeKeyMap;
@@ -14,8 +21,9 @@ public class LRU<K,V> {
         this.nodeList = new NodeDoubleLinkedList<>();
         this.capacity = capacity;
     }
+
     public V get(K key){
-        if(this.nodeKeyMap.containsKey(key)){
+        if(this.keyNodeMap.containsKey(key)){
             Node<V> node = this.keyNodeMap.get(key);
             this.nodeList.moveNodeToTail(node);
             return node.value;

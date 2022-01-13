@@ -61,8 +61,10 @@ public class SemaphoreDemo extends Thread{
     }
 
     @Test
-    public void testSemaphoreRelease(){
+    public void testSemaphoreRelease()throws Exception{
         Semaphore semaphore = new Semaphore(0);
+        semaphore.acquire(0);//为0时不会阻塞，为>0的时候会阻塞
+        System.out.println(22);
         System.out.println(semaphore.availablePermits());
         semaphore.release(2);
         System.out.println(semaphore.availablePermits());

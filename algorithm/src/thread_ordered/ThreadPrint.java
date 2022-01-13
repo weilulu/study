@@ -36,8 +36,8 @@ class PrintThread extends Thread {
     @Override
     public void run() {
         while (true) {
+            lock.lock();
             try {
-                lock.lock();
                 if (number > 100) {
                     System.out.println(name + "over");
                     notify.signal();

@@ -1,7 +1,5 @@
 package dynamic_plan;
 
-import org.checkerframework.checker.units.qual.C;
-
 /**
  * 汉诺塔问题
  * 给定一个整数n,代表汉诺塔游戏中从小到大放置的n个圆盘，假设开始时所有的圆盘都放在左边的柱子上，想按照汉诺塔游戏的要求把所有的圆盘

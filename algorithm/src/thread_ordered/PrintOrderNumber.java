@@ -16,6 +16,8 @@ public class PrintOrderNumber {
         new PrintNumber(1,"t-A",s1,s2).start();
         new PrintNumber(2,"t-B",s2,s3).start();
         new PrintNumber(0,"t-C",s3,s1).start();
+        /*new PrintNumber(1,"t-a",s1,s2).start();
+        new PrintNumber(0,"t-b",s2,s1).start();*/
     }
 }
 class PrintNumber extends Thread{
@@ -34,11 +36,11 @@ class PrintNumber extends Thread{
     @Override
     public void run() {
         while(true){
-            try {
+            /*try {
                 semaphoreRelease.acquire(0);
             }catch (InterruptedException e){
                 //ignore
-            }
+            }*/
             if(number > 100){
                 return;
             }

@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  * ３）通知所有等待在对象上的线程
  */
 public class WaitNotify {
-    private static boolean flag = false;
+    private static volatile boolean flag = false;
     private static Object lock = new Object();
 
     public static void main(String[] args) {

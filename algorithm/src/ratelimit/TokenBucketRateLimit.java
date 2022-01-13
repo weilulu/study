@@ -8,6 +8,8 @@ import java.util.concurrent.*;
  * 令牌桶算法
  * 令牌桶算法是漏桶算法的改进版，可以支持突发流量。不过与漏桶算法不同的是，令牌桶算法的漏桶中存放的是令牌而不是流量
  * 见：https://www.cnblogs.com/liran123/p/13467089.html
+ * 固定窗口：请求数进行累加，如果累加数超过限制则进行返回，同时使用任务定时将请求数清零
+ * 滑动窗口：暂时没看实现逻辑
  */
 public class TokenBucketRateLimit implements Runnable {
     /**每秒生成的token数*/

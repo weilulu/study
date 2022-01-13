@@ -11,13 +11,15 @@ package array;
  */
 public class SpiralOrderPrint {
     public static void main(String[] args) {
-//        int[][] matrix = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
-        int[][] matrix = {{1,2,3,4},{5,6,7,8},{9,10,11,12}};
+        //如果使用这个矩阵，那print方法里的tR不会与dR相等，tc也不会与dC相等
+        int[][] matrix = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
+        //如果使用这个矩阵，那print方法里的tR才会与dR相等，但tC与dC不相等
+        //int[][] matrix = {{1,2,3,4},{5,6,7,8},{9,10,11,12}};
         SpiralOrderPrint print = new SpiralOrderPrint();
         print.spiralOrderPrint(matrix);
     }
     public void spiralOrderPrint(int[][] matrix){
-        //设置初始值，(tR,tC)为最左下角坐标，也就是（0，0）；(dR,dC)为最右下角坐，也就是（3，3）
+        //设置初始值，(tR,tC)为最左上角坐标，也就是（0，0）；(dR,dC)为最右下角坐，也就是（3，3）
         int tR = 0;
         int tC = 0;
         int dR = matrix.length -1;//行数
@@ -38,19 +40,19 @@ public class SpiralOrderPrint {
         }else {//一般情况
             int curC = tC;
             int curR = tR;
-            while(curC != dC){
+            while(curC != dC){//外圈最上面一行
                 System.out.print(matrix[tR][curC] + " ");
                 curC++;
             }
-            while(curR != dR){
+            while(curR != dR){//外圈最右一列
                 System.out.print(matrix[curR][dC] + " ");
                 curR++;
             }
-            while(curC != tC){
+            while(curC != tC){//外圈最下面一行
                 System.out.print(matrix[dR][curC]+" ");
                 curC--;
             }
-            while (curR != tR){
+            while (curR != tR){//外圈最左一列
                 System.out.print(matrix[curR][tC]+" ");
                 curR--;
             }

@@ -19,6 +19,7 @@
         <module>algorithm</module>
         <module>thread</module>
         <module>test</module>
+        <module>protobuf</module>
     </modules>
 
     <properties>
@@ -141,7 +142,8 @@
     <dependency>
         <groupId>mysql</groupId>
         <artifactId>mysql-connector-java</artifactId>
-        <version>5.1.17</version>
+        <!--<version>5.1.17</version>-->
+        <version>5.1.36</version>
     </dependency>
     <dependency>
         <groupId>commons-dbcp</groupId>
@@ -264,6 +266,7 @@
         <artifactId>epp_bankacc_api</artifactId>
         <version>1.0.79-SNAPSHOT</version>
     </dependency>-->
+
 </dependencies>
 
     <build>
