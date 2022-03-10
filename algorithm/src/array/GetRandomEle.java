@@ -16,8 +16,9 @@ public class GetRandomEle {
             int element = random.nextInt(arr.length-i);
             System.out.println(arr[element]);
             int tmp = arr[element];
-            arr[element] = arr[arr.length-1-i];//交换的位置也要往前顺移
-            arr[arr.length-1] = tmp;
+            //获取到随机数后将其放在数组最后，这样，下次的随机数就只会在剩下的数里选。交换的位置也要往前顺移
+            arr[element] = arr[arr.length-1-i];
+            arr[arr.length-1-i] = tmp;
         }
     }
 }

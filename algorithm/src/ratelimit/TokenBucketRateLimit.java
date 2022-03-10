@@ -27,7 +27,7 @@ public class TokenBucketRateLimit implements Runnable {
         /**initialDelay：初始化延时;period：两次开始执行最小间隔时间*/
         scheduledExecutorService.scheduleAtFixedRate(this,0,interval, TimeUnit.SECONDS);
     }
-    //取令牌,取到之后进行后续处理
+    //客户端请求，取令牌,取到之后进行后续处理
     public boolean canPass() throws Exception{
         String token = tokenBucket.poll();
         if(StringUtils.isBlank(token)){

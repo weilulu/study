@@ -54,13 +54,14 @@ public class ListPartition {
         nodeArr[a] = nodeArr[b];
         nodeArr[b] = tmp;
     }
-}
-
-
-class Node{
-    public int value;
-    public Node next;
-    public Node(int value){
-        this.value = value;
+    class Node{
+        public int value;
+        public Node next;
+        public Node(int value){
+            this.value = value;
+        }
     }
 }
+
+
+

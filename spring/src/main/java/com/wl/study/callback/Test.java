@@ -36,6 +36,10 @@ public class Test {
 public static void main(String[] args) {
     System.out.println(Long.parseLong("173BEDCC927",16));
     System.out.println(String.format("%08X", 1596635007271L));
+
+    for (int times=0; times < 3; times++){
+        System.out.println(times);
+    }
 }
 
 }

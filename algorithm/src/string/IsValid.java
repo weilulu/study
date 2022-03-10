@@ -45,22 +45,28 @@ public class IsValid {
     public static boolean isValid2(String str){
         Stack<Character> s = new Stack<>();
         char[] arr = str.toCharArray();
+        int count = 0;
         for(int i=0;i< arr.length;i++){
             if(arr[i]=='('){
                 s.push(')');
+                count++;
             }else if(arr[i]=='{'){
                 s.push('}');
+                count++;
             }else if(arr[i]=='['){
                 s.push(']');
+                count++;
             }else if(s.isEmpty() || arr[i] != s.pop()){
                 return false;
+            }else{
+                count--;
             }
         }
-        return true;
+        return count==0;
     }
 
     public static void main(String[] args) {
-        String test = "(()))";
+        String test = "[]";
         boolean valid2 = isValid2(test);
         System.out.println(valid2);
         /*String[] test = {"a","b","c","b"};

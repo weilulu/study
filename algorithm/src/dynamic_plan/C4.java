@@ -1,5 +1,10 @@
 package dynamic_plan;
 
+import org.junit.Test;
+
+import java.util.LinkedHashSet;
+import java.util.TreeMap;
+
 /**
  * 最长公共子串问题
  * 给定两个字符串str1和str2，返回两个字符串的最长公共子串。比如
@@ -71,4 +76,38 @@ public class C4 {
         //根据最大值位置与子串长度进行截取
         return str1.substring(end - max + 1,end + 1);
     }
+
+    /**
+     * 最长公共前缀
+     * @param strs
+     * @return
+     */
+    /*public String longestCommonPrefix(String[] strs) {
+        if(strs == null){return "";}
+        TreeMap<Integer,String> treeMap = new TreeMap<>();
+        for(String str : strs){
+            treeMap.put(str.length(),str);
+        }
+        String shortStr = treeMap.get(treeMap.firstKey());
+        int[][] matrix = new int[strs.length-1][treeMap.firstKey()];
+        for(int i=0;i<strs.length;i++){
+            for(int j=0;j<treeMap.size();j++){
+                matrix[i][j] = strs[i].toCharArray()[j];
+            }
+        }
+        int row = matrix.length-1;
+        int col = matrix[0].length-1;
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        C4 c4 = new C4();
+        String[] strs = {"flower","flow","flight"};
+        String s = c4.longestCommonPrefix(strs);
+        System.out.println(s);
+    }*/
 }

@@ -5,7 +5,6 @@ package string;
  * 给定一个字符串str，返回str的最长无重复字符子串的长度，如：
  * str="abcd",返回4
  * str="aabcb",返回3
- * 这个不太明白
  */
 public class MaxUnique {
 

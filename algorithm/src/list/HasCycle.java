@@ -28,7 +28,7 @@ public class HasCycle {
      * https://blog.csdn.net/weixin_43729854/article/details/104246017
      * 1、设置快慢指针，假如有环，他们最后一定相遇。
      *
-     * 2、两个指针分别从链表头和相遇点继续出发，每次走一步，最后一定相遇与环入口。
+     * 2、两个指针分别从链表头和相遇点继续出发，每次走一步，最后一定相遇在环入口。
      * @param pHead
      * @return
      */

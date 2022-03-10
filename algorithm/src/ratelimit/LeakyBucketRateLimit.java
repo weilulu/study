@@ -23,6 +23,7 @@ public class LeakyBucketRateLimit implements Runnable{
         scheduledExecutorService.scheduleAtFixedRate(this,0,interval, TimeUnit.SECONDS);
     }
 
+    //接受客户端请求
     public boolean canPass()throws Exception{
         if(leakyBucket.remainingCapacity() == 0){
             throw new Exception("超过最大流量上限");

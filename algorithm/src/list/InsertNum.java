@@ -17,6 +17,7 @@ public class InsertNum {
     public Node insertNum(Node head,int num){
         Node node = new Node(num);
         if(head == null){
+            node.next = node;
             return node;
         }
         Node pre = head;
@@ -32,11 +33,11 @@ public class InsertNum {
             if(pre.value <= num && cur.value >= num){//这是在定位num节点应该插入的位置，num的值介于链表所有节点值之间,这里不会成立
                 break;
             }
-            pre = cur;
+            pre = cur;//保存上一节点
             cur = cur.next;
         }
-        pre.next = node;
-        node.next = cur;
+        pre.next = node;//当前节点的上一节点
+        node.next = cur;//当前节点的下一节点
         return head.value < num ? head : node;
     }
     static class Node{

@@ -25,7 +25,7 @@ public class C5 {
         if(arr.length < 2){
             return arr.length;
         }
-        //记录元素与元素位置
+        //记录元素值与元素位置
         HashMap<Integer, Integer> map = new HashMap<>();
         int max = 0;//子序列最大值
         //左指针，指向出现重复元素时上一次元素出现位置，

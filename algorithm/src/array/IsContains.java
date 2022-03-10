@@ -2,7 +2,7 @@ package array;
 
 /**
  * 在行列都排好序的矩阵中找指定的数
- * 给定一个NXM的整型矩阵matrix和一个整数k，matrix的每一行和每一列都是排好序的，判断k虽否在matrix中
+ * 给定一个NXM的整型矩阵matrix和一个整数k，matrix的每一行和每一列都是排好序的，判断k是否在matrix中
  * 0  1  2  5
  * 2  3  4  7
  * 4  4  4  8
@@ -12,14 +12,14 @@ package array;
  *
  * 如果将矩阵进行遍历，时间复杂度为MXN，但用下面的方法，可以做到M+N
  *
- * 1，先初始化一个坐标为右上角(0,M)
+ * 1，先初始化一个坐标为右上角(0,M)，注意是从右上角开始找！！！！！！！
  * 2，如果matrix[row][col]大于要找的数，则这一列中从matrix[row][col]往下都比要找的数大，所以没必要在此列上寻找，所以col--移到左一列。
  * 3，如果matrix[row][col]小于要找的数，则这一行中从matrix[row][col]往左都比要找的数小，所以没必要在此行上寻找，所以row++移到下一行。
  */
 public class IsContains {
     public boolean isContains(int[][] matrix,int k){
         int row = 0;
-        int col = matrix[0].length - 1;
+        int col = matrix[0].length - 1;//最大列，最大行为matrix.length-1;
         //先从右上角开始找
         while (row < matrix.length && col > -1){
             System.out.println("col:"+col+",row:"+row);

@@ -40,26 +40,21 @@ public class ReverseDoubleList {
         doubleNode4.next = null;
 
         ReverseDoubleList reverseDoubleList = new ReverseDoubleList();
-        /*while (head != null){
-            System.out.println(head.value);
-            head = head.next;
-        }*/
         DoubleNode doubleNode = reverseDoubleList.reverseList(head);
         while (doubleNode != null){
             System.out.println(doubleNode.value);
             doubleNode = doubleNode.next;
         }
     }
-}
+    static class DoubleNode{
+        public int value;
+        public DoubleNode last;//上一节点
+        public DoubleNode next;//下一节点
+        public DoubleNode(int value){
+            this.value = value;
+        }
 
-class DoubleNode{
-    public int value;
-    public DoubleNode last;//上一节点
-    public DoubleNode next;//下一节点
-    public DoubleNode(int value){
-        this.value = value;
     }
-
-
-
 }
+
+
