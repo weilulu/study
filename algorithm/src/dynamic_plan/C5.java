@@ -34,8 +34,8 @@ public class C5 {
         for(int right = 0; right < arr.length; right++){
             //遇到重复数字，用left记录重复数字上一次出现的位置
             if(map.containsKey(arr[right])){
-                //left = Math.max(left, map.get(arr[right]));
-                left = map.get(arr[right]);
+                left = Math.max(left, map.get(arr[right]));
+                //left = map.get(arr[right]);这种写法是错的
             }
             //记录元素与元素位置
             map.put(arr[right], right);
@@ -46,7 +46,7 @@ public class C5 {
     }
 
     public static void main(String[] args) {
-        int[] arr = {1,2,3,5,3,4,7,9,8,3};
+        int[] arr = {3,3,2,1,3,3,3,1};
         C5 c5 = new C5();
         int i = c5.maxLength(arr);
         System.out.println(i);

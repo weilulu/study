@@ -31,7 +31,8 @@ public class BiggestNum {
         for(int i=0;i<arr.length;i++){
             a[i] = String.valueOf(arr[i]);
         }
-        Arrays.sort(a,new StringCompare());//排序
+        //Arrays.sort(a,new StringCompare());//排序
+        Arrays.sort(a,(x,y)-> (y+x).compareTo(x+y));
         String test = "";
         for(int i=0;i<a.length;i++){
             test = test+a[i];

@@ -66,7 +66,7 @@ public class IsValid {
     }
 
     public static void main(String[] args) {
-        String test = "[]";
+        String test = "())";
         boolean valid2 = isValid2(test);
         System.out.println(valid2);
         /*String[] test = {"a","b","c","b"};

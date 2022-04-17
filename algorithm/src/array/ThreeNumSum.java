@@ -63,7 +63,7 @@ public class ThreeNumSum {
     }
 
     public static void main(String[] args) {
-        int[] nums = {-1,0,1,2,-1,-4};
+        int[] nums = {-2,0,0,2,2};
         ThreeNumSum sum = new ThreeNumSum();
         List<List<Integer>> lists = sum.threeSum(nums);
         System.out.println(lists.toString());

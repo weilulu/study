@@ -27,7 +27,7 @@ public class Josephus {
                 count = 0;
             }else{//没找到，先将last节点向前一步，再将head向前移一步
                 last = last.next;
-                head = last.next;
+                head = last.next;//注意这里不是head=head.next
             }
 
         }

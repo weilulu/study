@@ -7,6 +7,8 @@ import java.util.concurrent.locks.LockSupport;
 /**
  * 漏桶算法
  * 漏桶算法限制了流出速率是一个固定常量值，所以漏桶算法不支持出现突发流出流量
+ *
+ * 设定好桶的大小后，用户可以在不溢出的情况下往桶里加请求，之后定时任务以一定频率取出请求执行
  */
 public class LeakyBucketRateLimit implements Runnable{
     /**限制qps*/

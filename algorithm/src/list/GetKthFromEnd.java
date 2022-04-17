@@ -43,7 +43,7 @@ public class GetKthFromEnd {
         ListNode fast = pre;
         ListNode slow = pre;
         while(k>0){
-            fast.next = fast;
+            fast = fast.next;
             k--;
         }
         while (fast.next != null){

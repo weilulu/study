@@ -33,7 +33,7 @@ public class Rotate {
 
     }
     public static void rotate(int[][] matrix,int tR,int tC,int dR,int dC){
-        int times = dC - tC;//层
+        int times = dC - tC;//列
         int tmp = 0;//临时变量
         for(int i=0;i != times;i++){//处理每层
             tmp = matrix[tR][tC + i];//最开始这是(0,0)，也就是1的位置，下一次循环是2的位置

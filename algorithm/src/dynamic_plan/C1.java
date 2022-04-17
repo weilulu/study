@@ -1,7 +1,5 @@
 package dynamic_plan;
 
-import org.checkerframework.checker.units.qual.C;
-
 /**
  * 给定整数N，返回斐波那契数列的第N项
  * 1,1,2,3,5,8,13...
@@ -67,7 +65,7 @@ public class C1 {
 
     public static void main(String[] args) {
         C1 c1 = new C1();
-        int i = c1.m2(5);
+        int i = c1.m2(6);
         System.out.println(i);
     }
 }
